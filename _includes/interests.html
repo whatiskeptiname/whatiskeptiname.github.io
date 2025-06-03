@@ -1,9 +1,27 @@
-<h2 {% if site.style == 'dark' %}class="text-white"{% endif %}>My Interests</h2>
-<p class="f4 mb-4 {% if site.style == 'dark' %}text-white{% else %}text-gray{% endif %}">Topics that I want to learn more about.</p>
+<h2 {% if site.style == 'dark' %}class="text-white"{% endif %}>Susan’s Interests</h2>
+<p class="f4 mb-4 {% if site.style == 'dark' %}text-white{% else %}text-gray{% endif %}">
+  Topics I’m passionate about and want to dive deeper into.
+</p>
+
+{% comment %}
+  Define a custom array of topics based on your memory (photogrammetry, NeRF, 3D reconstruction, etc.)
+{% endcomment %}
+{% assign user_topics = 
+  "Photogrammetry,Camera Models,Perspective Projection,3D Reconstruction,Neural Radiance Fields (NeRF),Gaussian Splatting,Medical Image Analysis,Occlusion Detection,Annotation Tools,Deep Learning,Machine Learning" 
+  | split: "," 
+%}
+
 <div class="d-flex flex-wrap gutter-condensed mb-4">
-  {% for topic in site.topics %}
+  {% for topic in user_topics %}
     <div class="col-6 col-md-12 col-lg-6 col-xl-4 mb-3">
-      {% include topic-card.html %}
+      {% capture single_topic %}
+        {% assign title = topic | strip %}
+        {% comment %}
+          You can pass `title` into your `topic-card.html` include or adjust however you render each card.
+        {% endcomment %}
+        {% include topic-card.html title=title %}
+      {% endcapture %}
+      {{ single_topic }}
     </div>
   {% endfor %}
 </div>
