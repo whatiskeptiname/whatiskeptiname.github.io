@@ -1,7 +1,9 @@
 {%- comment -%}
-  This snippet renders a personalized "Susan’s Interests" section for your site,
-  using a custom list of topics based on your background and passions.
-  You can include this directly in the appropriate layout or page template.
+  A customized "Susan’s Interests" section that displays one card per topic.
+  Each card shows the topic name in a simple styled box.
+  
+  You can paste this snippet into any page or layout where you want to show your interests.
+  It does not depend on an external include—the card HTML/CSS is written inline.
 {%- endcomment -%}
 
 <h2 {% if site.style == 'dark' %}class="text-white"{% endif %}>Susan’s Interests</h2>
@@ -10,10 +12,8 @@
 </p>
 
 {%- comment -%}
-  Define a custom array of topics drawn from Susan’s memory:
-  Photogrammetry, Camera Models, Perspective Projection, 3D Reconstruction,
-  Neural Radiance Fields (NeRF), Gaussian Splatting, Medical Image Analysis,
-  Occlusion Detection, Annotation Tools, Deep Learning, Machine Learning
+  Define a custom array of topics based on Susan’s background/memory.
+  Feel free to reorder, remove, or add any topics here.
 {%- endcomment -%}
 {% assign user_topics = 
   "Photogrammetry,Camera Models,Perspective Projection,3D Reconstruction,Neural Radiance Fields (NeRF),Gaussian Splatting,Medical Image Analysis,Occlusion Detection,Annotation Tools,Deep Learning,Machine Learning" 
@@ -23,11 +23,14 @@
 <div class="d-flex flex-wrap gutter-condensed mb-4">
   {% for topic in user_topics %}
     <div class="col-6 col-md-12 col-lg-6 col-xl-4 mb-3">
-      {%- capture single_topic -%}
-        {%- assign title = topic | strip -%}
-        {%- include topic-card.html title=title -%}
-      {%- endcapture -%}
-      {{ single_topic }}
+      {%- assign title = topic | strip -%}
+      <div class="border rounded-2 shadow-sm p-4 h-100 {% if site.style == 'dark' %}bg-gray-800 text-white{% else %}bg-white text-gray-900{% endif %}">
+        <h3 class="h5 mb-1">{{ title }}</h3>
+        {%- comment -%}
+          If you want a short description under each title, you can uncomment and fill in the line below:
+          <p class="small {% if site.style == 'dark' %}text-gray-300{% else %}text-gray-600{% endif %}">Your short description here…</p>
+        {%- endcomment -%}
+      </div>
     </div>
   {% endfor %}
 </div>
